@@ -1,5 +1,6 @@
 from wtforms import BooleanField, StringField, PasswordField, validators, SubmitField,Form
-from flask.ext.pagedown.fields import PageDownField
+#removed .ext. incase anything fails
+from flask_pagedown.fields import PageDownField
 from wtforms.validators import DataRequired
 
 class LoginForm(Form):
@@ -7,8 +8,6 @@ class LoginForm(Form):
     password = PasswordField('Password', [validators.DataRequired(message='Must provide a password.')])
     remember_me = BooleanField('remember_me', default=False)
     submit = SubmitField('Submit')
-
-bucket = {}
 
 class SignUpForm(Form):
     firstname = StringField('firstname', [validators.Length(min=2, max=20)])
@@ -29,9 +28,11 @@ class GoalsForm(Form):
 class EditForm(Form):
     body = PageDownField('Body', [validators.Length(min=1, max=1500)])
     tags = StringField('Tags', [validators.Length(min=1, max=20)])
-    
-bucket = {
-    'u_name' : SignUpForm.username,
-    'password' : SignUpForm.password,
-    'goals' : GoalsForm.body
-}
+
+class Bucket(dict, LoginForm, GoalsForm):
+
+    def display_goal(self, username, password, body):
+        if username in users.keys() and password == user[username][0]:
+            return self.user[username][1]
+        else:
+            self.user.update({username : [password, body]})
