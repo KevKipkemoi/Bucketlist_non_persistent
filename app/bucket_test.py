@@ -5,6 +5,7 @@ from bucket import Bucket
 class BucketTestCase(unittest.TestCase):
     
     #ClassIsSetup = False
+    email = 'user@example.com'
     username = 'kev'
     password = 'czar'
     goal = 'make a difference'
