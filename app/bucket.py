@@ -33,8 +33,7 @@ class Bucket(dict, LoginForm, GoalsForm):
             if added_user:
                 reset = 1
                 added_user = False
-            return reset
-                
+            return reset                
         
     def display_goal(self, username):
         if remember:
