@@ -22,6 +22,8 @@ class SignUpForm(Form):
     
    
 class GoalsForm(Form):
+    #id
+    description = StringField('Description', [validators.Length(min=3, max=25)])
     body = PageDownField('Body', [validators.Length(min=1, max=1500)])
     tags = StringField('Tags', [validators.Length(min=1, max=20)])
 

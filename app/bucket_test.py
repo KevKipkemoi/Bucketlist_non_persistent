@@ -5,32 +5,21 @@ from bucket import Bucket
 class BucketTestCase(unittest.TestCase):
     
     #ClassIsSetup = False
-    #email = 'user@example.com'
-    #username = 'kev'
-    #password = 'czar'
-    #goal = 'make a difference'
     
-    """
     @classmethod
     def setUpClass(self):
         unittest.TestCase.setUp(self)
+        self.email = 'user@example.com'
+        self.username = 'kev'
+        self.password = 'czar'
+        self.goal = 'make a difference'
         self.Bucket = Bucket(email, username, password, goal)
     
-    """    
-    def setUpClass(self):
-        unittest.TestCase.setUp(self)
-        self.Bucket = Bucket(email, username, password, goal)
-        email = 'user@example.com'
-        username = 'kev'
-        password = 'czar'
-        goal = 'make a difference'
-        
-
     def test_add_user(self):
-        self.assertTrue(Bucket.add_user, 1)
+        self.assertTrue(Bucket.add_user(email), 1)
         
     def test_invalid_user(self):
-        self.assertTrue(Bucket.invalid_user, 1)
+        self.assertTrue(Bucket.invalid_user(email), 1)
         
     def test_login(self):
         self.assertTrue(Bucket.login(email))

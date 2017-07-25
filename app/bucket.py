@@ -38,7 +38,7 @@ class Bucket(dict, LoginForm, GoalsForm):
         
     def display_goal(self, email):
         if remember:
-            return self.user[username][2]
+            return self.user[email][2]
         else:
             print('please login/signup')
             
