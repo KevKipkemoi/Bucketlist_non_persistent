@@ -1,7 +1,4 @@
-from flask import Flask, render_template
-
-def main():
-	return render_template('index.html')
+from app import views
 
 if __name__ == '__main__':
     app.run(debug=True)
