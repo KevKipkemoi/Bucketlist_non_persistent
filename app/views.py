@@ -1,7 +1,9 @@
 from flask import Flask, render_template
+from app import models
+from .. import run
 
- 
-app = Flask(__name__)
+
+userdata = []
 
 def login_required(f):
     @wraps(f)
@@ -12,7 +14,10 @@ def login_required(f):
     return decorated_function
 
 @app.route('/')
-@app.route('/index')
+def hello():
+	return "hello"
+
+@app.route('/index', methods=['GET'])
 def index():
 	return render_template("index.html")
 
@@ -23,4 +28,9 @@ def signup():
 		return render_template("signup.html")
 
 	if request.method == 'POST':
-		name = reuqest.form.get('inputName')
+		name = request.form.get('inputName')
+		password = request.form.get('inputPassword')
+		email = request.form.get('inputEmail')
+		username = request.form.get('userName')
+
+		userdata.append(UserData(name, password, email, username))
