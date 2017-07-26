@@ -13,8 +13,4 @@ class UserData(object):
 			    'Password': password,
 			    'email': email,
 			    'User Name': username
-			})
-
-	def edit_user_data(self, name=None, username=None, email=None, password=None):
-		if name:
-			
+			})			
