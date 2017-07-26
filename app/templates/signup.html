@@ -21,7 +21,7 @@
 
 	<div class="jumbotron">
 		<h1>Bucket List App</h1>
-		<form class="form-signin">
+		<form class="form-signin" method="post" action="/signup/">
 		<label for="inputName" class="sr-only">Name</label>
 		<input type="name" name="inputName" id="inputName" class="form-control" placeholder="Name" required autofocus>
 		
@@ -29,12 +29,12 @@
 		<input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 
 		<label for="inputUsername" class="sr-only">User Name</label>
-		<input type="name" name="userName" id="inputUsername" class="form-control" placeholder="User Name" required autofocus>
+		<input type="name" name="inputuserName" id="inputUsername" class="form-control" placeholder="User Name" required autofocus>
 		
 		<label for="inputPassword" class="sr-only">Password</label>
 		<input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
 
-		<button id="btnSignUp" name="signupbtn" class="btn btn-lg btn-primary btn-block" type="button">Sign Up</button>
+		<button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
 			
 		</form>
 	</div>
