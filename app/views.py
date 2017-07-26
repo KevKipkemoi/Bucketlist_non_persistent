@@ -31,7 +31,14 @@ def signup():
 
 		userdata.append(models.UserData(name, password, email, username))
 """
+@app.route('/login')
+def login():
+	for value in userdata:
+		if value.email == email and value.password == password:
+			return render_template("goals.html")
 
+		else:
+			return render_template("goals.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
