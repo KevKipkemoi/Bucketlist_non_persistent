@@ -1,6 +1,5 @@
-from flask import Flask, render_template, session, redirect, request, url_for, g
+from flask import Flask, render_template, session, redirect, request, url_for
 import os
-from functools import wraps
 from models import UserData
 
 app = Flask(__name__)
@@ -8,8 +7,16 @@ app = Flask(__name__)
 userdata = []
 app.secret_key = os.urandom(10)
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if g.user is None:
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route('/', methods=['GET'])
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET'])
 def index():
 	return render_template("index.html")
 
@@ -27,25 +34,17 @@ def signup():
 		username = request.form.get('inputuserName')
 
 		userdata.append(UserData(name, password, email, username))
-		return redirect(url_for("login"))
+		return redirect(url_for("index"))
 
-@app.route('/login', methods=['GET', 'POST'])
-@app.route('/login/', methods=['GET', 'POST'])
+@app.route('/login')
 def login():
-	if request.method == 'GET':
-		return render_template('login.html')
-	
-	elif request.method == 'POST':
-		for value in userdata:
-			email = request.form.get('email')
-			password = request.form.get('password')
-			if value.email == email and value.password == password:
-				session['email'] = value.email
-				return redirect(url_for("goals"))
+	for value in userdata:
+		if value.email == email and value.password == password:
+			session['email'] = value.email
+			return render_template("goals.html")
 
-@app.route('/goals', methods=['GET', 'POST'])
-def goals():
-	return render_template('goals.html')
+		else:
+			return render_template("goals.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
