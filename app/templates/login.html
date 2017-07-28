@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Login Form</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.css">
 
 </head>
 <body>
@@ -12,7 +12,9 @@
       <h1>Login to Bucket List</h1>
 
       <form action="/login" method="post">
-        <label>Login</label><p><input type="text" name="inputEmail"></p>
+        <label for="email" >Email Address</label>
+        <p><input type="text" name="inputEmail"></p>
+        <label for="password">Password</label>
         <p><input type="password" name="inputPassword"></p>
         <p class="remember_me">
           <label>

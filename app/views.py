@@ -1,11 +1,13 @@
 from flask import Flask, render_template, session, redirect, request, url_for
 import os
 from models import UserData
+from bucket import Bucket
 
 app = Flask(__name__)
 
 userdata = []
 app.secret_key = os.urandom(10)
+error = None
 
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
@@ -21,7 +23,7 @@ def signup():
 		name = request.form.get('inputName')
 		password = request.form.get('inputPassword')
 		email = request.form.get('inputEmail')
-		username = request.form.get('inputuserName')	
+		username = request.form.get('inputuserName')
 		new_user = UserData(name, username, email, password)
 		userdata.append(new_user)
 
@@ -33,23 +35,38 @@ def login():
 		return render_template("login.html")
 		
 	if request.method == 'POST':
-		print(request.form, "-", request.data)
 		email = request.form['inputEmail']
 		password = request.form.get('inputPassword')
-	
+		print(userdata)
 		for value in userdata:
 			if value.email == email and value.password == password:
 				session['email'] = value.email
 				return redirect(url_for("bucketlist"))
-			return render_template("login.html")
 	return render_template("login.html")
 
-@app.route('/bucketlist')
+@app.route('/bucketlist', methods=['GET', 'POST'])
 def bucketlist():
 	if session:
-		return render_template("bucketlist.html")
+		if request.method == "GET":					
+			return render_template("bucketlist.html")
+		elif request.method == 'POST':
+			description = request.form.get('addDescription')
+			bucketlist = request.method.get('addBucketlist')
+			user_bucket = Bucket.create_bucketlist(description, bucketlist)
+			Bucket.data.append({
+				value.email: user_bucket
+			})
+
+		for value in Bucket.data:
+			print(value.description)
+			print(value.bucketlist)
 	else:
 		return redirect(url_for("login"))
+
+@app.route('/logout')
+def logout():
+	return redirect(url_for("index"))
+	session.pop(session['email'])	
 
 if __name__ == '__main__':
     app.run(debug=True)

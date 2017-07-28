@@ -1,5 +1,4 @@
 from bucketlist import BucketList
-import uuid
 
 class Bucket(object):
 
@@ -7,8 +6,8 @@ class Bucket(object):
 
     # Create
     @staticmethod
-    def create_bucketlist(description, goal, id=str(uuid.uuid1())):
-        new_bucket = BucketList(id, description, goal)
+    def create_bucketlist(description, goal, id=str(len(data))):
+        new_bucket = BucketList(id, description, bucketlist)
         Bucket.data.append(new_bucket) 
 
     # Read
@@ -18,8 +17,8 @@ class Bucket(object):
 
     # Update
     @staticmethod
-    def update_bucketlist(goal):
-        updated_bucket = BucketList(id, description, goal)
+    def update_bucketlist(bucketlist):
+        updated_bucket = BucketList(id, description, bucketlist)
         Bucket.data.insert(0, updated_bucket)
 
     # Delete
